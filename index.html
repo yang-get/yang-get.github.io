@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交易手续费计算器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzU2NzkzOTgxMTIwIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE1MzkiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PHBhdGggZD0iTTE5Mi42ODI0MTcgNjE3LjEzNTUwMmMxMC40OTgwOTggOC42NTIwNTQgMjMuNjI1MDcgMTMuMzE4MzMgMzcuMDQwNjE0IDEzLjMxODMzIDIuMzAwMzkyIDAgNC42MDE4MDgtMC4xMzYxIDYuOTAxMTc3LTAuNDA3Mjc2IDE1Ljc5NDczMS0xLjg5NzIxIDMwLjExOTk5NS0xMC4xODE4OTcgMzkuNzQ4MjgzLTIyLjkxODk4OUwzOTYuODExNTM4IDQ0Ny4zMDA0NDJsMTE5LjkxODE4MyAxMDEuNTI2MzAxYzEyLjE1ODkyNCAxMC4yNzcwNjQgMjcuOTM1MjM2IDE1LjM4NzQ1NSA0My43Njc4MjkgMTMuNDkxMjY5IDE1LjgxMzE1MS0xLjY2NDkxOSAzMC4yNzM0OTEtOS42OTY4NSA0MC4wNTUyNzUtMjIuMzE3Mjg1bDI3NS40MjQ5MS0zNTQuOTQyOTY1YzIuMDEwNzk3LTIuNTkzMDU4IDMuNTk2OTIxLTUuMzgwNTQ0IDUuMTI0NzE3LTguMTY4MDNsNDguMzUwMTk1LTU3LjI1NzA1MmMyNS45MDM5NzMtMzAuNjc5NzQzIDE0Ljc2OTM3OC01MC41OTgzOTgtMjQuNzQ2NjE0LTQ0LjI0ODc4M2wtMjI3Ljg2Nzc3OCAzNi41ODMxOTdjLTM5LjUzNDQxMiA2LjM0OTYxNS00Ny43NDk1MTQgMzMuODE3Mi0xOC4yNjgwNjIgNjEuMDcwOTE0bDQ1LjU2NTc3OCA0Mi4xMDA4NjRMNTQ1LjYyOTkzNSA0MTkuNDA3MTYybC0xMjAuNTU0NjgtMTAyLjA4NjA1Yy0xMi4yNzU1ODEtMTAuMzM2NDE2LTI4LjE0NzA2LTE1LjIxNTU0LTQ0LjE5MjUwMS0xMy40NTIzODMtMTUuOTMwODMxIDEuNzgwNTUzLTMwLjQ0ODQ3NiAxMC4wODM2NTktNDAuMTM0MDY5IDIyLjk1NTgyOGwtMTIwLjk2MDkzMiAxNjAuNTI2MDQzLTU4LjA5MzA5My00Ny43OTI0OTNjLTI1LjAxNDcyLTIwLjU5NTA2MS02MS45MDE4MzktMTYuOTE3Mjk4LTgyLjM1NDY2IDguMjg0Njg3LTIwLjQ1MjgyMSAyNS4xNjMwOTktMTYuNzgwMTc1IDYyLjI1MDc4NiA4LjI1NTAxMSA4Mi44MDc5ODRMMTkyLjY4MjQxNyA2MTcuMTM1NTAyeiIgZmlsbD0iI0Y0NTk0NCIgcC1pZD0iMTU0MCI+PC9wYXRoPjxwYXRoIGQ9Ik04NzguNjI2MDUyIDM0OS4yNTk1MjIgNjEwLjAyNTU3MSA2NzYuMzI3NjI2Yy0xMi4wNjM3NTcgMTUuMjkxMjY1LTQyLjc0NDUyMy02LjY1ODY1My01Ny41NTE3NjQtMTkuMjQwMjAzbC0xMDcuOTUxNjQxLTk0Ljk2NDg2MmMtMTQuODA4MjY0LTEyLjU4MDUyNi0zNy4wMDA3MDYgOC43MTAzODItNDkuMzE1MTcyIDIzLjgwOTI2NWwtMTI1LjQ0NzEwNyAxNTMuODg0Nzg2Yy0xMi4yOTQwMDEgMTUuMDk4ODgzLTM0LjQxMTc0MS0yLjIwNjI0OC00OS4xMDMzNDgtMTQuOTI0OTIxbC0xMDkuNDU3OTQ4LTg3LjA0NjUxOGMtMTkuNjQxMzM5LTE4Ljg5MTI1Ni0zOC4zNzUwMDYgMC44MTM1MjgtMzguMzc1MDA2IDM4LjQ4MTQzbDAuNjc2NDA1IDIzMy4xMzE2NjVjMC4wMzc4NjIgMTkuNTUwMjY1IDE1LjkyODc4NCAzNS41Mzg0MDEgMzUuMjgwNTI4IDM1LjU1Nzg0NGw4MTAuNTU4NzkzIDAuNjM5NTY2YzE5LjM3MTE4NiAwLjAxODQyIDM1LjIwMzc4LTE1Ljk2OTcxNyAzNS4yMDM3OC0zNS41MTk5ODEgMCAwIDAuODExNDgyLTUwMy40NDYxODMgMC44MTE0ODItNTQxLjY1NjQzN0M5NTUuMzc1MDQgMzE3LjI0MzM0MSA5MTQuOTEyNDg5IDMwNy40MTAzOTIgODc4LjYyNjA1MiAzNDkuMjU5NTIyeiIgZmlsbD0iI0Y0NTk0NCIgcC1pZD0iMTU0MSI+PC9wYXRoPjwvc3ZnPg==" />
+    <!-- 配置Tailwind自定义颜色和字体 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        success: '#52C41A',
+                        danger: '#FF4D4F',
+                        warning: '#FAAD14',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+            .input-focus {
+                @apply focus:ring-2 focus:ring-primary/50 focus:border-primary;
+            }
+            .btn-hover {
+                @apply hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300;
+            }
+            .result-item {
+                @apply flex justify-between py-2 border-b border-gray-100 last:border-0;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50 min-h-screen">
+    <!-- 顶部导航 -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-calculator text-primary text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold text-dark">交易手续费计算器</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-4 flex-wrap">
+                <span class="text-sm text-gray-500"><i class="fa fa-info-circle mr-1"></i> 佣金: 0.02354%</span>
+                <span class="text-sm text-gray-500"><i class="fa fa-info-circle mr-1"></i> 印花税: 0.05%（股票卖出）</span>
+                <span class="text-sm text-gray-500"><i class="fa fa-info-circle mr-1"></i> 过户费: 0.001%（股票）/0.0001元/份（ETF）</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- 说明卡片 -->
+        <div class="bg-primary/5 rounded-lg p-4 mb-8 border border-primary/20">
+            <div class="flex items-start">
+                <i class="fa fa-lightbulb-o text-primary mt-1 mr-3 text-xl"></i>
+                <div>
+                    <h2 class="font-semibold text-dark mb-2">使用说明</h2>
+                    <p class="text-sm text-gray-600">本计算器支持股票和ETF交易的费用和收益计算。ETF交易不收取印花税，过户费按份额计算（0.0001元/份）。所有费率已按您提供的参数预设。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 选项卡导航 -->
+        <div class="mb-6 border-b border-gray-200">
+            <ul class="flex flex-nowrap -mb-px" id="calculator-tabs" role="tablist">
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block py-4 px-5 text-sm font-medium text-center border-b-2 border-primary text-primary rounded-t-lg" id="buy-tab" data-tabs-target="#buy-calculator" type="button" role="tab" aria-selected="true">
+                        <i class="fa fa-arrow-down mr-2"></i>买入手续费
+                    </button>
+                </li>
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block py-4 px-5 text-sm font-medium text-center border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 rounded-t-lg" id="sell-tab" data-tabs-target="#sell-calculator" type="button" role="tab" aria-selected="false">
+                        <i class="fa fa-arrow-up mr-2"></i>卖出手续费
+                    </button>
+                </li>
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block py-4 px-5 text-sm font-medium text-center border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 rounded-t-lg" id="profit-tab" data-tabs-target="#profit-calculator" type="button" role="tab" aria-selected="false">
+                        <i class="fa fa-line-chart mr-2"></i>股票获利
+                    </button>
+                </li>
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block py-4 px-5 text-sm font-medium text-center border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 rounded-t-lg" id="etf-profit-tab" data-tabs-target="#etf-profit-calculator" type="button" role="tab" aria-selected="false">
+                        <i class="fa fa-exchange mr-2"></i>ETF获利
+                    </button>
+                </li>
+                <li role="presentation">
+                    <button class="inline-block py-4 px-5 text-sm font-medium text-center border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 rounded-t-lg" id="t-tab" data-tabs-target="#t-calculator" type="button" role="tab" aria-selected="false">
+                        <i class="fa fa-refresh mr-2"></i>做T交易
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 计算器内容 -->
+        <div id="calculator-content">
+            <!-- 买入手续费计算器 -->
+            <div class="block p-6 bg-white rounded-lg shadow card-shadow" id="buy-calculator" role="tabpanel">
+                <h2 class="text-xl font-bold text-dark mb-6 flex items-center">
+                    <i class="fa fa-arrow-down text-success mr-2"></i>买入手续费计算
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">品种类型</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="buy-type" value="stock" checked class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">股票</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="buy-type" value="etf" class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">ETF</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">市场类型</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="buy-market" value="sh" checked class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">沪市</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="buy-market" value="sz" class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">深市</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="buy-price" class="block text-sm font-medium text-gray-700 mb-1">价格 (元)</label>
+                            <input type="number" step="0.01" min="0.01" id="buy-price" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入价格">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="buy-shares" class="block text-sm font-medium text-gray-700 mb-1">买入数量 (股/份)</label>
+                            <input type="number" step="100" min="100" id="buy-shares" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入买入数量（100的倍数）">
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button id="calculate-buy" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium btn-hover flex items-center justify-center">
+                                <i class="fa fa-calculator mr-2"></i>计算买入费用
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">计算结果</h3>
+                        <div id="buy-results" class="space-y-3 text-gray-700">
+                            <div class="result-item">
+                                <span>总价值：</span>
+                                <span id="buy-total-price" class="font-medium">- -</span>
+                            </div>
+                            <div class="result-item">
+                                <span>佣金：</span>
+                                <span id="buy-commission" class="font-medium">- -</span>
+                            </div>
+                            <div class="result-item">
+                                <span>过户费：</span>
+                                <span id="buy-transfer-fee" class="font-medium">- -</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="font-semibold">手续费合计：</span>
+                                <span id="buy-fees-total" class="font-semibold text-warning">- -</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="font-semibold">买入总成本：</span>
+                                <span id="buy-total-cost" class="font-semibold text-primary">- -</span>
+                            </div>
+                            <div class="result-item">
+                                <span>每股/每份成本价：</span>
+                                <span id="buy-cost-per-share" class="font-medium text-success">- -</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 卖出手续费计算器 -->
+            <div class="hidden p-6 bg-white rounded-lg shadow card-shadow" id="sell-calculator" role="tabpanel">
+                <h2 class="text-xl font-bold text-dark mb-6 flex items-center">
+                    <i class="fa fa-arrow-up text-danger mr-2"></i>卖出手续费计算
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">品种类型</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="sell-type" value="stock" checked class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">股票</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="sell-type" value="etf" class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">ETF</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">市场类型</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="sell-market" value="sh" checked class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">沪市</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="sell-market" value="sz" class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">深市</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="sell-price" class="block text-sm font-medium text-gray-700 mb-1">价格 (元)</label>
+                            <input type="number" step="0.01" min="0.01" id="sell-price" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入价格">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="sell-shares" class="block text-sm font-medium text-gray-700 mb-1">卖出数量 (股/份)</label>
+                            <input type="number" step="100" min="100" id="sell-shares" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入卖出数量（100的倍数）">
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button id="calculate-sell" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium btn-hover flex items-center justify-center">
+                                <i class="fa fa-calculator mr-2"></i>计算卖出费用
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">计算结果</h3>
+                        <div id="sell-results" class="space-y-3 text-gray-700">
+                            <div class="result-item">
+                                <span>总价值：</span>
+                                <span id="sell-total-value" class="font-medium">- -</span>
+                            </div>
+                            <div class="result-item">
+                                <span>佣金：</span>
+                                <span id="sell-commission" class="font-medium">- -</span>
+                            </div>
+                            <div class="result-item" id="sell-stamp-duty-container">
+                                <span>印花税：</span>
+                                <span id="sell-stamp-duty" class="font-medium">- -</span>
+                            </div>
+                            <div class="result-item">
+                                <span>过户费：</span>
+                                <span id="sell-transfer-fee" class="font-medium">- -</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="font-semibold">手续费合计：</span>
+                                <span id="sell-fees-total" class="font-semibold text-warning">- -</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="font-semibold">卖出实际到账：</span>
+                                <span id="sell-actual-amount" class="font-semibold text-primary">- -</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 股票买卖获利计算器 -->
+            <div class="hidden p-6 bg-white rounded-lg shadow card-shadow" id="profit-calculator" role="tabpanel">
+                <h2 class="text-xl font-bold text-dark mb-6 flex items-center">
+                    <i class="fa fa-line-chart text-warning mr-2"></i>股票买卖获利计算
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">市场类型</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="profit-market" value="sh" checked class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">沪市</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="profit-market" value="sz" class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">深市</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="buy-price-profit" class="block text-sm font-medium text-gray-700 mb-1">买入价格 (元)</label>
+                            <input type="number" step="0.01" min="0.01" id="buy-price-profit" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入买入价格">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="sell-price-profit" class="block text-sm font-medium text-gray-700 mb-1">卖出价格 (元)</label>
+                            <input type="number" step="0.01" min="0.01" id="sell-price-profit" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入卖出价格">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="shares-profit" class="block text-sm font-medium text-gray-700 mb-1">股票数量 (股)</label>
+                            <input type="number" step="100" min="100" id="shares-profit" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入股票数量（100股的倍数）">
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button id="calculate-profit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium btn-hover flex items-center justify-center">
+                                <i class="fa fa-calculator mr-2"></i>计算获利
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">计算结果</h3>
+                        <div id="profit-results" class="space-y-3 text-gray-700">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-500 mb-2">买入费用明细</h4>
+                                <div class="result-item">
+                                    <span>股票总价：</span>
+                                    <span id="profit-buy-total" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>买入佣金：</span>
+                                    <span id="profit-buy-commission" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>买入过户费：</span>
+                                    <span id="profit-buy-transfer" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">买入总成本：</span>
+                                    <span id="profit-total-buy-cost" class="font-semibold">- -</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-500 mb-2">卖出费用明细</h4>
+                                <div class="result-item">
+                                    <span>股票总价值：</span>
+                                    <span id="profit-sell-total" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>卖出佣金：</span>
+                                    <span id="profit-sell-commission" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>印花税：</span>
+                                    <span id="profit-stamp-duty" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>卖出过户费：</span>
+                                    <span id="profit-sell-transfer" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">卖出实际到账：</span>
+                                    <span id="profit-total-sell-amount" class="font-semibold">- -</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-500 mb-2">收益 summary</h4>
+                                <div class="result-item">
+                                    <span>总交易费用：</span>
+                                    <span id="profit-total-transaction-fees" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">净利润：</span>
+                                    <span id="profit-net-profit" class="font-semibold text-success">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">收益率：</span>
+                                    <span id="profit-profit-rate" class="font-semibold text-primary">- -</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETF买卖获利计算器 -->
+            <div class="hidden p-6 bg-white rounded-lg shadow card-shadow" id="etf-profit-calculator" role="tabpanel">
+                <h2 class="text-xl font-bold text-dark mb-6 flex items-center">
+                    <i class="fa fa-exchange text-secondary mr-2"></i>ETF买卖获利计算
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">市场类型</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="etf-profit-market" value="sh" checked class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">沪市</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="etf-profit-market" value="sz" class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">深市</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="etf-buy-price" class="block text-sm font-medium text-gray-700 mb-1">买入价格 (元)</label>
+                            <input type="number" step="0.001" min="0.001" id="etf-buy-price" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入买入价格">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="etf-sell-price" class="block text-sm font-medium text-gray-700 mb-1">卖出价格 (元)</label>
+                            <input type="number" step="0.001" min="0.001" id="etf-sell-price" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入卖出价格">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="etf-shares" class="block text-sm font-medium text-gray-700 mb-1">ETF数量 (份)</label>
+                            <input type="number" step="100" min="100" id="etf-shares" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入ETF数量（100份的倍数）">
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button id="calculate-etf-profit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium btn-hover flex items-center justify-center">
+                                <i class="fa fa-calculator mr-2"></i>计算ETF获利
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">计算结果</h3>
+                        <div id="etf-profit-results" class="space-y-3 text-gray-700">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-500 mb-2">买入费用明细</h4>
+                                <div class="result-item">
+                                    <span>ETF总价值：</span>
+                                    <span id="etf-buy-total" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>买入佣金：</span>
+                                    <span id="etf-buy-commission" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>买入过户费：</span>
+                                    <span id="etf-buy-transfer" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">买入总成本：</span>
+                                    <span id="etf-total-buy-cost" class="font-semibold">- -</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-500 mb-2">卖出费用明细</h4>
+                                <div class="result-item">
+                                    <span>ETF总价值：</span>
+                                    <span id="etf-sell-total" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>卖出佣金：</span>
+                                    <span id="etf-sell-commission" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>卖出过户费：</span>
+                                    <span id="etf-sell-transfer" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">卖出实际到账：</span>
+                                    <span id="etf-total-sell-amount" class="font-semibold">- -</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-500 mb-2">收益 summary</h4>
+                                <div class="result-item">
+                                    <span>总交易费用：</span>
+                                    <span id="etf-total-transaction-fees" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">净利润：</span>
+                                    <span id="etf-net-profit" class="font-semibold text-success">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">收益率：</span>
+                                    <span id="etf-profit-rate" class="font-semibold text-primary">- -</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 做T交易计算器 -->
+            <div class="hidden p-6 bg-white rounded-lg shadow card-shadow" id="t-calculator" role="tabpanel">
+                <h2 class="text-xl font-bold text-dark mb-6 flex items-center">
+                    <i class="fa fa-refresh text-secondary mr-2"></i>做T交易计算
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">品种类型</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="t-type" value="stock" checked class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">股票</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="t-type" value="etf" class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">ETF</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">市场类型</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="t-market" value="sh" checked class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">沪市</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="t-market" value="sz" class="text-primary focus:ring-primary h-4 w-4">
+                                    <span class="ml-2 text-sm text-gray-700">深市</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="original-cost" class="block text-sm font-medium text-gray-700 mb-1">原有持仓成本价 (元)</label>
+                            <input type="number" step="0.01" min="0.01" id="original-cost" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入原有持仓成本价">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="original-shares" class="block text-sm font-medium text-gray-700 mb-1">原有持仓数量 (股/份)</label>
+                            <input type="number" step="100" min="100" id="original-shares" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入原有持仓数量">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="t-buy-price" class="block text-sm font-medium text-gray-700 mb-1">做T买入价格 (元)</label>
+                            <input type="number" step="0.01" min="0.01" id="t-buy-price" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入做T买入价格">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="t-sell-price" class="block text-sm font-medium text-gray-700 mb-1">做T卖出价格 (元)</label>
+                            <input type="number" step="0.01" min="0.01" id="t-sell-price" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入做T卖出价格">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="t-shares" class="block text-sm font-medium text-gray-700 mb-1">做T数量 (股/份)</label>
+                            <input type="number" step="100" min="100" id="t-shares" class="w-full px-4 py-2 border border-gray-300 rounded-lg input-focus transition duration-200" placeholder="输入做T数量（100的倍数）">
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button id="calculate-t" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium btn-hover flex items-center justify-center">
+                                <i class="fa fa-calculator mr-2"></i>计算做T结果
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">计算结果</h3>
+                        <div id="t-results" class="space-y-3 text-gray-700">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-500 mb-2">做T买入费用明细</h4>
+                                <div class="result-item">
+                                    <span>买入总价：</span>
+                                    <span id="t-buy-total" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>买入佣金：</span>
+                                    <span id="t-buy-commission" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>买入过户费：</span>
+                                    <span id="t-buy-transfer" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">买入总成本：</span>
+                                    <span id="t-buy-cost" class="font-semibold">- -</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-500 mb-2">做T卖出费用明细</h4>
+                                <div class="result-item">
+                                    <span>卖出总价：</span>
+                                    <span id="t-sell-total" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>卖出佣金：</span>
+                                    <span id="t-sell-commission" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item" id="t-stamp-duty-container">
+                                    <span>印花税：</span>
+                                    <span id="t-stamp-duty" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>卖出过户费：</span>
+                                    <span id="t-sell-transfer" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">卖出实际收入：</span>
+                                    <span id="t-sell-income" class="font-semibold">- -</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-500 mb-2">做T收益 summary</h4>
+                                <div class="result-item">
+                                    <span>做T交易总费用：</span>
+                                    <span id="t-transaction-fees" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">做T获利：</span>
+                                    <span id="t-profit" class="font-semibold text-success">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>原持仓成本价：</span>
+                                    <span id="pre-t-cost" class="font-medium">- -</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="font-semibold">做T后成本价：</span>
+                                    <span id="post-t-cost" class="font-semibold text-primary">- -</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white mt-12 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fa fa-calculator text-primary mr-2"></i>
+                        <span class="font-bold">交易手续费计算器</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">专业、精准的股票和ETF交易费用计算工具</p>
+                </div>
+                
+                <div class="text-sm text-gray-400">
+                    <p>费率说明：佣金 0.02354% | 印花税 0.05%（股票卖出） | 过户费 0.001%（股票）/0.0001元/份（ETF）</p>
+                    <p class="mt-1">© 2025 交易手续费计算器 - 保留所有权利</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 费率设置
+        const COMMISSION_RATE = 0.02354 / 100; // 佣金率
+        const STAMP_DUTY_RATE = 0.05 / 100;    // 印花税率（股票卖出）
+        const STOCK_TRANSFER_RATE = 0.001 / 100; // 股票过户费率
+        const ETF_TRANSFER_FEE_PER_SHARE = 0.0001; // ETF过户费（元/份）
+        const MIN_COMMISSION = 5;              // 最低佣金
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化品种类型切换事件
+            initTypeToggleEvents();
+        });
+        
+        // 初始化品种类型切换事件
+        function initTypeToggleEvents() {
+            // 卖出计算器的品种类型切换
+            document.querySelectorAll('input[name="sell-type"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const stampDutyContainer = document.getElementById('sell-stamp-duty-container');
+                    if (this.value === 'etf') {
+                        stampDutyContainer.style.display = 'none';
+                    } else {
+                        stampDutyContainer.style.display = 'flex';
+                    }
+                });
+            });
+            
+            // 做T计算器的品种类型切换
+            document.querySelectorAll('input[name="t-type"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const stampDutyContainer = document.getElementById('t-stamp-duty-container');
+                    if (this.value === 'etf') {
+                        stampDutyContainer.style.display = 'none';
+                    } else {
+                        stampDutyContainer.style.display = 'flex';
+                    }
+                });
+            });
+            
+            // 初始隐藏ETF相关的印花税项
+            if (document.querySelector('input[name="sell-type"][value="etf"]').checked) {
+                document.getElementById('sell-stamp-duty-container').style.display = 'none';
+            }
+            
+            if (document.querySelector('input[name="t-type"][value="etf"]').checked) {
+                document.getElementById('t-stamp-duty-container').style.display = 'none';
+            }
+        }
+        
+        // 选项卡切换功能
+        document.querySelectorAll('#calculator-tabs button').forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有选项卡的活跃状态
+                document.querySelectorAll('#calculator-tabs button').forEach(btn => {
+                    btn.classList.remove('border-primary', 'text-primary');
+                    btn.classList.add('border-transparent', 'text-gray-500');
+                    btn.setAttribute('aria-selected', 'false');
+                });
+                
+                // 设置当前选项卡为活跃状态
+                button.classList.remove('border-transparent', 'text-gray-500');
+                button.classList.add('border-primary', 'text-primary');
+                button.setAttribute('aria-selected', 'true');
+                
+                // 隐藏所有内容区域
+                document.querySelectorAll('#calculator-content > div').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // 显示当前选项卡对应的内容
+                const target = button.getAttribute('data-tabs-target');
+                document.querySelector(target).classList.remove('hidden');
+            });
+        });
+        
+        // 格式化金额为人民币格式
+        function formatCurrency(amount) {
+            return '¥' + amount.toFixed(2);
+        }
+        
+        // 格式化百分比
+        function formatPercentage(rate) {
+            return (rate * 100).toFixed(2) + '%';
+        }
+        
+        // 获取选中的市场类型
+        function getSelectedMarket(prefix) {
+            const marketElements = document.querySelectorAll(`input[name="${prefix}-market"]`);
+            for (const el of marketElements) {
+                if (el.checked) {
+                    return el.value;
+                }
+            }
+            return 'sh'; // 默认沪市
+        }
+        
+        // 获取选中的品种类型
+        function getSelectedType(prefix) {
+            const typeElements = document.querySelectorAll(`input[name="${prefix}-type"]`);
+            for (const el of typeElements) {
+                if (el.checked) {
+                    return el.value;
+                }
+            }
+            return 'stock'; // 默认股票
+        }
+        
+        // 计算买入手续费
+        document.getElementById('calculate-buy').addEventListener('click', () => {
+            const type = getSelectedType('buy');
+            const market = getSelectedMarket('buy');
+            const price = parseFloat(document.getElementById('buy-price').value);
+            const shares = parseInt(document.getElementById('buy-shares').value);
+            
+            if (isNaN(price) || isNaN(shares) || price <= 0 || shares <= 0 || shares % 100 !== 0) {
+                alert('请输入有效的价格和数量（数量应为100的倍数）');
+                return;
+            }
+            
+            // 计算各项费用
+            const totalPrice = price * shares;
+            let commission = totalPrice * COMMISSION_RATE;
+            commission = Math.max(commission, MIN_COMMISSION); // 佣金不低于最低标准
+            
+            // 计算过户费（股票和ETF计算方式不同）
+            let transferFee = 0;
+            if (market === 'sh') { // 深市无过户费
+                if (type === 'stock') {
+                    transferFee = totalPrice * STOCK_TRANSFER_RATE;
+                } else { // ETF
+                    transferFee = shares * ETF_TRANSFER_FEE_PER_SHARE;
+                }
+            }
+            
+            const feesTotal = commission + transferFee;
+            const totalCost = totalPrice + feesTotal;
+            const costPerShare = totalCost / shares;
+            
+            // 显示结果
+            document.getElementById('buy-total-price').textContent = formatCurrency(totalPrice);
+            document.getElementById('buy-commission').textContent = formatCurrency(commission);
+            document.getElementById('buy-transfer-fee').textContent = formatCurrency(transferFee);
+            document.getElementById('buy-fees-total').textContent = formatCurrency(feesTotal);
+            document.getElementById('buy-total-cost').textContent = formatCurrency(totalCost);
+            document.getElementById('buy-cost-per-share').textContent = costPerShare.toFixed(4) + '元';
+            
+            // 添加动画效果
+            animateResults('buy-results');
+        });
+        
+        // 计算卖出手续费
+        document.getElementById('calculate-sell').addEventListener('click', () => {
+            const type = getSelectedType('sell');
+            const market = getSelectedMarket('sell');
+            const price = parseFloat(document.getElementById('sell-price').value);
+            const shares = parseInt(document.getElementById('sell-shares').value);
+            
+            if (isNaN(price) || isNaN(shares) || price <= 0 || shares <= 0 || shares % 100 !== 0) {
+                alert('请输入有效的价格和数量（数量应为100的倍数）');
+                return;
+            }
+            
+            // 计算各项费用
+            const totalValue = price * shares;
+            let commission = totalValue * COMMISSION_RATE;
+            commission = Math.max(commission, MIN_COMMISSION); // 佣金不低于最低标准
+            
+            // 股票卖出有印花税，ETF没有
+            const stampDuty = type === 'stock' ? totalValue * STAMP_DUTY_RATE : 0;
+            
+            // 计算过户费（股票和ETF计算方式不同）
+            let transferFee = 0;
+            if (market === 'sh') { // 深市无过户费
+                if (type === 'stock') {
+                    transferFee = totalValue * STOCK_TRANSFER_RATE;
+                } else { // ETF
+                    transferFee = shares * ETF_TRANSFER_FEE_PER_SHARE;
+                }
+            }
+            
+            const feesTotal = commission + stampDuty + transferFee;
+            const actualAmount = totalValue - feesTotal;
+            
+            // 显示结果
+            document.getElementById('sell-total-value').textContent = formatCurrency(totalValue);
+            document.getElementById('sell-commission').textContent = formatCurrency(commission);
+            document.getElementById('sell-stamp-duty').textContent = formatCurrency(stampDuty);
+            document.getElementById('sell-transfer-fee').textContent = formatCurrency(transferFee);
+            document.getElementById('sell-fees-total').textContent = formatCurrency(feesTotal);
+            document.getElementById('sell-actual-amount').textContent = formatCurrency(actualAmount);
+            
+            // 添加动画效果
+            animateResults('sell-results');
+        });
+        
+        // 计算股票买卖获利
+        document.getElementById('calculate-profit').addEventListener('click', () => {
+            const market = getSelectedMarket('profit');
+            const buyPrice = parseFloat(document.getElementById('buy-price-profit').value);
+            const sellPrice = parseFloat(document.getElementById('sell-price-profit').value);
+            const shares = parseInt(document.getElementById('shares-profit').value);
+            
+            if (isNaN(buyPrice) || isNaN(sellPrice) || isNaN(shares) || 
+                buyPrice <= 0 || sellPrice <= 0 || shares <= 0 || shares % 100 !== 0) {
+                alert('请输入有效的股票价格和数量（数量应为100的倍数）');
+                return;
+            }
+            
+            // 计算买入成本
+            const buyTotalPrice = buyPrice * shares;
+            let buyCommission = buyTotalPrice * COMMISSION_RATE;
+            buyCommission = Math.max(buyCommission, MIN_COMMISSION);
+            const buyTransferFee = market === 'sh' ? buyTotalPrice * STOCK_TRANSFER_RATE : 0;
+            const totalBuyCost = buyTotalPrice + buyCommission + buyTransferFee;
+            
+            // 计算卖出收入
+            const sellTotalValue = sellPrice * shares;
+            let sellCommission = sellTotalValue * COMMISSION_RATE;
+            sellCommission = Math.max(sellCommission, MIN_COMMISSION);
+            const stampDuty = sellTotalValue * STAMP_DUTY_RATE;
+            const sellTransferFee = market === 'sh' ? sellTotalValue * STOCK_TRANSFER_RATE : 0;
+            const totalSellAmount = sellTotalValue - sellCommission - stampDuty - sellTransferFee;
+            
+            // 计算利润
+            const totalTransactionFees = buyCommission + buyTransferFee + sellCommission + stampDuty + sellTransferFee;
+            const netProfit = totalSellAmount - totalBuyCost;
+            const profitRate = netProfit / totalBuyCost;
+            
+            // 显示结果
+            document.getElementById('profit-buy-total').textContent = formatCurrency(buyTotalPrice);
+            document.getElementById('profit-buy-commission').textContent = formatCurrency(buyCommission);
+            document.getElementById('profit-buy-transfer').textContent = formatCurrency(buyTransferFee);
+            document.getElementById('profit-total-buy-cost').textContent = formatCurrency(totalBuyCost);
+            
+            document.getElementById('profit-sell-total').textContent = formatCurrency(sellTotalValue);
+            document.getElementById('profit-sell-commission').textContent = formatCurrency(sellCommission);
+            document.getElementById('profit-stamp-duty').textContent = formatCurrency(stampDuty);
+            document.getElementById('profit-sell-transfer').textContent = formatCurrency(sellTransferFee);
+            document.getElementById('profit-total-sell-amount').textContent = formatCurrency(totalSellAmount);
+            
+            document.getElementById('profit-total-transaction-fees').textContent = formatCurrency(totalTransactionFees);
+            
+            // 根据利润正负显示不同颜色
+            const profitElement = document.getElementById('profit-net-profit');
+            profitElement.textContent = formatCurrency(netProfit);
+            if (netProfit >= 0) {
+                profitElement.className = 'font-semibold text-success';
+            } else {
+                profitElement.className = 'font-semibold text-danger';
+            }
+            
+            // 显示收益率
+            const rateElement = document.getElementById('profit-profit-rate');
+            rateElement.textContent = formatPercentage(profitRate);
+            if (profitRate >= 0) {
+                rateElement.className = 'font-semibold text-success';
+            } else {
+                rateElement.className = 'font-semibold text-danger';
+            }
+            
+            // 添加动画效果
+            animateResults('profit-results');
+        });
+        
+        // 计算ETF买卖获利
+        document.getElementById('calculate-etf-profit').addEventListener('click', () => {
+            const market = getSelectedMarket('etf-profit');
+            const buyPrice = parseFloat(document.getElementById('etf-buy-price').value);
+            const sellPrice = parseFloat(document.getElementById('etf-sell-price').value);
+            const shares = parseInt(document.getElementById('etf-shares').value);
+            
+            if (isNaN(buyPrice) || isNaN(sellPrice) || isNaN(shares) || 
+                buyPrice <= 0 || sellPrice <= 0 || shares <= 0 || shares % 100 !== 0) {
+                alert('请输入有效的ETF价格和数量（数量应为100的倍数）');
+                return;
+            }
+            
+            // 计算买入成本
+            const buyTotalPrice = buyPrice * shares;
+            let buyCommission = buyTotalPrice * COMMISSION_RATE;
+            buyCommission = Math.max(buyCommission, MIN_COMMISSION);
+            const buyTransferFee = market === 'sh' ? shares * ETF_TRANSFER_FEE_PER_SHARE : 0;
+            const totalBuyCost = buyTotalPrice + buyCommission + buyTransferFee;
+            
+            // 计算卖出收入（ETF无印花税）
+            const sellTotalValue = sellPrice * shares;
+            let sellCommission = sellTotalValue * COMMISSION_RATE;
+            sellCommission = Math.max(sellCommission, MIN_COMMISSION);
+            const sellTransferFee = market === 'sh' ? shares * ETF_TRANSFER_FEE_PER_SHARE : 0;
+            const totalSellAmount = sellTotalValue - sellCommission - sellTransferFee;
+            
+            // 计算利润
+            const totalTransactionFees = buyCommission + buyTransferFee + sellCommission + sellTransferFee;
+            const netProfit = totalSellAmount - totalBuyCost;
+            const profitRate = netProfit / totalBuyCost;
+            
+            // 显示结果
+            document.getElementById('etf-buy-total').textContent = formatCurrency(buyTotalPrice);
+            document.getElementById('etf-buy-commission').textContent = formatCurrency(buyCommission);
+            document.getElementById('etf-buy-transfer').textContent = formatCurrency(buyTransferFee);
+            document.getElementById('etf-total-buy-cost').textContent = formatCurrency(totalBuyCost);
+            
+            document.getElementById('etf-sell-total').textContent = formatCurrency(sellTotalValue);
+            document.getElementById('etf-sell-commission').textContent = formatCurrency(sellCommission);
+            document.getElementById('etf-sell-transfer').textContent = formatCurrency(sellTransferFee);
+            document.getElementById('etf-total-sell-amount').textContent = formatCurrency(totalSellAmount);
+            
+            document.getElementById('etf-total-transaction-fees').textContent = formatCurrency(totalTransactionFees);
+            
+            // 根据利润正负显示不同颜色
+            const profitElement = document.getElementById('etf-net-profit');
+            profitElement.textContent = formatCurrency(netProfit);
+            if (netProfit >= 0) {
+                profitElement.className = 'font-semibold text-success';
+            } else {
+                profitElement.className = 'font-semibold text-danger';
+            }
+            
+            // 显示收益率
+            const rateElement = document.getElementById('etf-profit-rate');
+            rateElement.textContent = formatPercentage(profitRate);
+            if (profitRate >= 0) {
+                rateElement.className = 'font-semibold text-success';
+            } else {
+                rateElement.className = 'font-semibold text-danger';
+            }
+            
+            // 添加动画效果
+            animateResults('etf-profit-results');
+        });
+        
+        // 计算做T交易
+        document.getElementById('calculate-t').addEventListener('click', () => {
+            const type = getSelectedType('t');
+            const market = getSelectedMarket('t');
+            const originalCost = parseFloat(document.getElementById('original-cost').value);
+            const originalShares = parseInt(document.getElementById('original-shares').value);
+            const tBuyPrice = parseFloat(document.getElementById('t-buy-price').value);
+            const tSellPrice = parseFloat(document.getElementById('t-sell-price').value);
+            const tShares = parseInt(document.getElementById('t-shares').value);
+            
+            if (isNaN(originalCost) || isNaN(originalShares) || isNaN(tBuyPrice) || 
+                isNaN(tSellPrice) || isNaN(tShares) || originalCost <= 0 || 
+                originalShares <= 0 || tBuyPrice <= 0 || tSellPrice <= 0 || 
+                tShares <= 0 || originalShares % 100 !== 0 || tShares % 100 !== 0 ||
+                tShares > originalShares) {
+                alert('请输入有效的数据，做T数量不能超过原有持仓数量，且应为100的倍数');
+                return;
+            }
+            
+            // 计算做T买入成本
+            const tBuyTotal = tBuyPrice * tShares;
+            let tBuyCommission = tBuyTotal * COMMISSION_RATE;
+            tBuyCommission = Math.max(tBuyCommission, MIN_COMMISSION);
+            
+            let tBuyTransferFee = 0;
+            if (market === 'sh') { // 深市无过户费
+                if (type === 'stock') {
+                    tBuyTransferFee = tBuyTotal * STOCK_TRANSFER_RATE;
+                } else { // ETF
+                    tBuyTransferFee = tShares * ETF_TRANSFER_FEE_PER_SHARE;
+                }
+            }
+            
+            const tBuyCost = tBuyTotal + tBuyCommission + tBuyTransferFee;
+            
+            // 计算做T卖出收入
+            const tSellTotal = tSellPrice * tShares;
+            let tSellCommission = tSellTotal * COMMISSION_RATE;
+            tSellCommission = Math.max(tSellCommission, MIN_COMMISSION);
+            
+            // 股票卖出有印花税，ETF没有
+            const tSellStampDuty = type === 'stock' ? tSellTotal * STAMP_DUTY_RATE : 0;
+            
+            let tSellTransferFee = 0;
+            if (market === 'sh') { // 深市无过户费
+                if (type === 'stock') {
+                    tSellTransferFee = tSellTotal * STOCK_TRANSFER_RATE;
+                } else { // ETF
+                    tSellTransferFee = tShares * ETF_TRANSFER_FEE_PER_SHARE;
+                }
+            }
+            
+            const tSellIncome = tSellTotal - tSellCommission - tSellStampDuty - tSellTransferFee;
+            
+            // 计算做T收益
+            const tTransactionFees = tBuyCommission + tBuyTransferFee + tSellCommission + tSellStampDuty + tSellTransferFee;
+            const tProfit = tSellIncome - tBuyCost;
+            
+            // 计算做T后的成本价
+            const originalTotalCost = originalCost * originalShares;
+            const newTotalCost = originalTotalCost + tBuyCost - tSellIncome;
+            const postTCost = newTotalCost / originalShares;
+            
+            // 显示结果
+            document.getElementById('t-buy-total').textContent = formatCurrency(tBuyTotal);
+            document.getElementById('t-buy-commission').textContent = formatCurrency(tBuyCommission);
+            document.getElementById('t-buy-transfer').textContent = formatCurrency(tBuyTransferFee);
+            document.getElementById('t-buy-cost').textContent = formatCurrency(tBuyCost);
+            
+            document.getElementById('t-sell-total').textContent = formatCurrency(tSellTotal);
+            document.getElementById('t-sell-commission').textContent = formatCurrency(tSellCommission);
+            document.getElementById('t-stamp-duty').textContent = formatCurrency(tSellStampDuty);
+            document.getElementById('t-sell-transfer').textContent = formatCurrency(tSellTransferFee);
+            document.getElementById('t-sell-income').textContent = formatCurrency(tSellIncome);
+            
+            document.getElementById('t-transaction-fees').textContent = formatCurrency(tTransactionFees);
+            
+            // 显示做T获利
+            const tProfitElement = document.getElementById('t-profit');
+            tProfitElement.textContent = formatCurrency(tProfit);
+            if (tProfit >= 0) {
+                tProfitElement.className = 'font-semibold text-success';
+            } else {
+                tProfitElement.className = 'font-semibold text-danger';
+            }
+            
+            // 显示成本价变化
+            document.getElementById('pre-t-cost').textContent = originalCost.toFixed(4) + '元';
+            document.getElementById('post-t-cost').textContent = postTCost.toFixed(4) + '元';
+            
+            // 添加动画效果
+            animateResults('t-results');
+        });
+        
+        // 结果区域动画效果
+        function animateResults(elementId) {
+            const resultsElement = document.getElementById(elementId);
+            resultsElement.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                resultsElement.classList.remove('opacity-0');
+                resultsElement.classList.add('transition-opacity', 'duration-500');
+            }, 50);
+        }
+        
+        // 输入框回车键触发计算
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    // 根据当前活跃的选项卡触发相应的计算
+                    if (!document.getElementById('buy-calculator').classList.contains('hidden')) {
+                        document.getElementById('calculate-buy').click();
+                    } else if (!document.getElementById('sell-calculator').classList.contains('hidden')) {
+                        document.getElementById('calculate-sell').click();
+                    } else if (!document.getElementById('profit-calculator').classList.contains('hidden')) {
+                        document.getElementById('calculate-profit').click();
+                    } else if (!document.getElementById('etf-profit-calculator').classList.contains('hidden')) {
+                        document.getElementById('calculate-etf-profit').click();
+                    } else if (!document.getElementById('t-calculator').classList.contains('hidden')) {
+                        document.getElementById('calculate-t').click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
