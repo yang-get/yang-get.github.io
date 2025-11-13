@@ -2,10 +2,21 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0;url=交易手续费计算器V7.0.html">
-    <title>跳转中...</title>
-    <!-- 隐藏页面滚动条，彻底无视觉痕迹 -->
-    <style>body { margin: 0; overflow: hidden; }</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交易手续费计算器</title>
+    <style>
+        /* 隐藏iframe边框、滚动条，让页面完全无缝 */
+        body { margin: 0; padding: 0; overflow: hidden; }
+        iframe { 
+            width: 100vw; /* 占满屏幕宽度 */
+            height: 100vh; /* 占满屏幕高度 */
+            border: none; /* 隐藏边框 */
+            display: block; /* 消除默认空隙 */
+        }
+    </style>
 </head>
-<body></body>
+<body>
+    <!-- iframe 加载目标文件，地址栏显示主站域名 -->
+    <iframe src="交易手续费计算器V7.0.html"></iframe>
+</body>
 </html>
